@@ -18,6 +18,7 @@ public class Node {
 	private String attributeId; //node's id
 	private List<String> parents; //list of parent for this node
 	private int totalSupport;
+	private List<Node> children; //link to children nodes
 	
 	/**
 	 * Basic constructor
@@ -25,6 +26,7 @@ public class Node {
 	public Node(String attributeId) {
 		this.attributeId = attributeId;
 		data = new HashMap<Condition, Integer>();
+		children = new ArrayList<Node>();
 		parents = new ArrayList<String>();
 		totalSupport = 0;
 	}
@@ -50,7 +52,6 @@ public class Node {
 		inc(minCondition);
 	}
 	
-	
 	/**
 	 * Calculate the probability for this condition
 	 * @param condition
@@ -62,9 +63,11 @@ public class Node {
 		Condition minCondition = minimizeCondition(condition);
 		Integer support = data.get(minCondition);
 		
-		if(support != null) {
-			probability = (double) support / totalSupport;
+		if(support == null) {
+			support = smoothingVal;
 		}
+		
+		probability = (double) support / totalSupport;
 		
 		return probability;
 	}
@@ -90,14 +93,14 @@ public class Node {
 	
 		Integer value = data.get(condition);
 		if(value == null) {
-			data.put(condition, smoothingVal);
-		}
-		else {
-			value++;
-			data.put(condition, value);
+			value =  smoothingVal;
+			totalSupport += smoothingVal + 1;
+		} else {
+			totalSupport++;
 		}
 		
-		totalSupport++;
+		value++;
+		data.put(condition, value);
 	}
 	
 	/**
@@ -129,13 +132,13 @@ public class Node {
 		Condition c5 = new Condition("1	1	2	1	1	2");
 		Condition c6 = new Condition("1	1	2	1	1	1");
 		Condition c7 = new Condition("1	1	2	1	2	2");
-		Condition c8 = new Condition("1	1	1	2	2	1");
-		Condition c9 = new Condition("1	1	1	1	2	2");
-		Condition c10 = new Condition("2	2	2	2	1	1");
-		Condition c11 = new Condition("2	1	1	2	1	1");
-		Condition c12 = new Condition("2	2	1	1	2	1");
-		Condition c13 = new Condition("2	1	1	1	2	1");
-		Condition c14 = new Condition("1	1	2	1	2	1");
+//		Condition c8 = new Condition("1	1	1	2	2	1");
+//		Condition c9 = new Condition("1	1	1	1	2	2");
+//		Condition c10 = new Condition("2	2	2	2	1	1");
+//		Condition c11 = new Condition("2	1	1	2	1	1");
+//		Condition c12 = new Condition("2	2	1	1	2	1");
+//		Condition c13 = new Condition("2	1	1	1	2	1");
+//		Condition c14 = new Condition("1	1	2	1	2	1");
 		
 		System.out.println(c1);
 		
@@ -152,7 +155,7 @@ public class Node {
 		
 		System.out.println(A);
 		
-		System.out.println(A.prob(c8));
+		System.out.println(A.prob(new Condition("1	1	0")));
 		
 	}
 
