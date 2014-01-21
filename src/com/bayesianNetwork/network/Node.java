@@ -1,4 +1,4 @@
-package com.bayesianNetwork;
+package com.bayesianNetwork.network;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Map.Entry;
  */
 public class Node {
 
-	private final static int smoothingVal = 1;
+	public final static int smoothingVal = 0;
 	
 	private HashMap<Condition, Integer> data; //contains all the data
 	private String attributeId; //node's id
@@ -31,12 +31,42 @@ public class Node {
 		totalSupport = 0;
 	}
 	
+	public String getId() {
+		return attributeId;
+	}
+	
 	/**
 	 * Add a parent to the node
 	 * @param id Id of the parent
 	 */
 	public void AddParent(String id) {
 		parents.add(id);
+	}
+	
+	public int ParentSize() {
+		return parents.size();
+	}
+	
+	public boolean hasParent(String id) {
+		for(String parent : parents) {
+			if(id.compareTo(parent) == 0) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Add a child to the node
+	 * @param id Id of the parent
+	 */
+	public void AddChild(Node child) {
+		children.add(child);
+	}
+	
+	public List<Node> getChildren() {
+		return children;
 	}
 
 	/**
@@ -59,14 +89,13 @@ public class Node {
 	 */
 	public double prob(Condition condition) {
 		
-		double probability = 0.0d;
 		Condition minCondition = minimizeCondition(condition);
-		Integer support = data.get(minCondition);
 		
-		if(support == null) {
-			support = smoothingVal;
-		}
+		//Getting the support for this condition
+		double probability = 0.0d;
+		Integer support = getSupport(minCondition);
 		
+		//Calculating the probability for this condition against this node
 		probability = (double) support / totalSupport;
 		
 		return probability;
@@ -91,16 +120,18 @@ public class Node {
 	 */
 	private void inc(Condition condition) {
 	
-		Integer value = data.get(condition);
-		if(value == null) {
-			value =  smoothingVal;
-			totalSupport += smoothingVal + 1;
-		} else {
-			totalSupport++;
-		}
+		//Integer value = getSupport(condition);
 		
-		value++;
-		data.put(condition, value);
+		List<Condition> possibleConditions = Condition.getConcretes(condition);
+		for(Condition c : possibleConditions) {
+		
+			Integer value = getSupport(c);
+			
+			totalSupport++;
+			value++;
+			data.put(c, value);
+			
+		}
 	}
 	
 	/**
@@ -121,17 +152,35 @@ public class Node {
 		
 		return minCondition;
 	}
+	
+	/**
+	 * Calculate the support for a given condition. For a condition
+	 * containing wildcards, the support is the sum of the support of 
+	 * all the possible concrete form of the condition
+	 * @return Absolute support
+	 */
+	private Integer getSupport(Condition condition) {
+		int support = 0;		
+		
+		//Sum all the possible concrete form of the condition
+		List<Condition> possibleConditions = Condition.getConcretes(condition);
+		for(Condition c : possibleConditions) {
+			support += (data.get(c) == null) ? 0 : data.get(c);
+		}
+		
+		return support;
+	}
 
 	
 	public static void main(String[] args) {
 		
 		Condition c1 = new Condition("1	2	1	2	1	2");
-		Condition c2 = new Condition("1	1	1	1	1	1");
+		Condition c2 = new Condition("*	1	1	1	1	1");
 		Condition c3 = new Condition("1	1	1	1	2	1");
 		Condition c4 = new Condition("1	1	1	2	1	1");
 		Condition c5 = new Condition("1	1	2	1	1	2");
 		Condition c6 = new Condition("1	1	2	1	1	1");
-		Condition c7 = new Condition("1	1	2	1	2	2");
+//		Condition c7 = new Condition("1	1	2	1	2	2");
 //		Condition c8 = new Condition("1	1	1	2	2	1");
 //		Condition c9 = new Condition("1	1	1	1	2	2");
 //		Condition c10 = new Condition("2	2	2	2	1	1");
@@ -155,8 +204,8 @@ public class Node {
 		
 		System.out.println(A);
 		
-		System.out.println(A.prob(new Condition("1	1	0")));
-		
+		System.out.println(A.prob(new Condition("1	1	*")));
+
 	}
 
 }
