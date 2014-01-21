@@ -119,9 +119,6 @@ public class Node {
 	 * @param condition Condition to match
 	 */
 	private void inc(Condition condition) {
-	
-		//Integer value = getSupport(condition);
-		
 		List<Condition> possibleConditions = Condition.getConcretes(condition);
 		for(Condition c : possibleConditions) {
 		
@@ -130,7 +127,6 @@ public class Node {
 			totalSupport++;
 			value++;
 			data.put(c, value);
-			
 		}
 	}
 	
@@ -171,11 +167,27 @@ public class Node {
 		return support;
 	}
 
+	/**
+	 * Basic implementation:
+	 * if there is only one condition then its support is 100%
+	 * @return A list of invariant conditions
+	 */
+	private List<Condition> getInvariant() {
+		
+		List<Condition> conditions = new ArrayList<Condition>();
+		
+		if(data.size() == 1) {
+			conditions.add(data.keySet().iterator().next());
+		}
+		
+		return conditions;
+	}
+	
 	
 	public static void main(String[] args) {
 		
-		Condition c1 = new Condition("1	2	1	2	1	2");
-		Condition c2 = new Condition("*	1	1	1	1	1");
+		Condition c1 = new Condition("1	1	1	2	1	2");
+		Condition c2 = new Condition("1	1	1	1	1	1");
 		Condition c3 = new Condition("1	1	1	1	2	1");
 		Condition c4 = new Condition("1	1	1	2	1	1");
 		Condition c5 = new Condition("1	1	2	1	1	2");
@@ -198,14 +210,19 @@ public class Node {
 		A.processCase(c1);
 		A.processCase(c2);
 		A.processCase(c3);
-		A.processCase(c4);
-		A.processCase(c5);
-		A.processCase(c6);
+//		A.processCase(c4);
+//		A.processCase(c5);
+//		A.processCase(c6);
 		
 		System.out.println(A);
 		
 		System.out.println(A.prob(new Condition("1	1	*")));
-
+		
+		List<Condition> invariants = A.getInvariant();
+		for(Condition c : invariants) {
+			System.out.println(c);
+		}
+		
 	}
 
 }
