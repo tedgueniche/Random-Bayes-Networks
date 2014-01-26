@@ -1,5 +1,8 @@
 package com.bayesianNetwork.network;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Represent a Bayesian Network as a whole
  * @author Ted Gueniche
@@ -26,7 +29,11 @@ public class Network {
 	 */
 	public void processCase(Condition condition) {
 		Root.processCase(condition);
-		processCase(Root, condition);
+		
+		Set<Node> seen = new HashSet<>();
+		seen.add(Root);
+		
+		processCase(seen, Root, condition);
 	}
 	
 	/**
@@ -34,10 +41,19 @@ public class Network {
 	 * @param node Node to start with, this node needs to be already process
 	 * @param condition Condition to process
 	 */
-	private void processCase(Node node, Condition condition) {
+	private void processCase(Set<Node> seen, Node node, Condition condition) {
 		for(Node child : node.getChildren()) {
+			
+			if(seen.contains(child)) {
+				continue;
+			}
+			seen.add(child);
+			
+			//Process this case on this child
 			child.processCase(condition);
-			processCase(child, condition);
+			
+			//Recursive call for this node's children
+			processCase(seen, child, condition);
 		}
 	}
 	
@@ -50,8 +66,11 @@ public class Network {
 	public Double prob(Condition condition) {
 		Double probability =  Root.prob(condition);
 		
+		Set<Node> seen = new HashSet<>();
+		seen.add(Root);
+		
 		//Start the recursive call through the network
-		probability *= prob(Root, condition);
+		probability *= prob(seen, Root, condition);
 		
 		return probability;
 	}
@@ -61,17 +80,22 @@ public class Network {
 	 * @param node The node's children to evaluate
 	 * @param condition The condition to test
 	 */
-	private Double prob(Node node, Condition condition) {
+	private Double prob(Set<Node> seen, Node node, Condition condition) {
 		
 		Double probability = 1d;
 		for(Node child : node.getChildren()) {
+			
+			if(seen.contains(child)) {
+				continue;
+			}
+			seen.add(child);
 			
 			//Calculating the prob for this child
 			Double childProb = child.prob(condition);
 			probability *= (childProb == 0.0) ? Node.smoothingVal : childProb;
 			
 			//recursive call
-			probability *= prob(child, condition);
+			probability *= prob(seen, child, condition);
 		}
 		
 		return probability;

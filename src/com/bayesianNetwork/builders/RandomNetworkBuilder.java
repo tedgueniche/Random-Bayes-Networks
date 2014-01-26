@@ -67,7 +67,7 @@ public class RandomNetworkBuilder {
 	}
 	
 	/**
-	 * Recursively adds a level to the network
+	 * Recursively adds one level at the time to the network
 	 */
 	public void AddLevel(List<Node> prevLevel, List<Integer> toAdd) {
 		

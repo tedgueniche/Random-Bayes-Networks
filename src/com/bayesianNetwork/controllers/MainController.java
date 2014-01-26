@@ -1,8 +1,12 @@
 package com.bayesianNetwork.controllers;
 
+import java.util.List;
+
 import com.bayesianNetwork.builders.RandomNetworkBuilder;
+import com.bayesianNetwork.minimization.OnlineMinimizer;
 import com.bayesianNetwork.network.Condition;
 import com.bayesianNetwork.network.Network;
+import com.bayesianNetwork.network.Value;
 
 /**
  * 
@@ -28,8 +32,8 @@ public class MainController {
 		net.processCase(new Condition("1	1	2	1"));
 		
 		
-		Condition toTest1 = new Condition("1	1	1	1");
-		Condition toTest2 = new Condition("1	1	1	2");
+		Condition toTest1 = new Condition("2	1	1	1");
+		Condition toTest2 = new Condition("1	1	1	1");
 		
 		Double score1Raw = net.prob(toTest1);
 		Double score2Raw = net.prob(toTest2);
@@ -40,7 +44,14 @@ public class MainController {
 		System.out.println(score1Raw / sum);
 		System.out.println(score2Raw / sum);
 		
-		nb.generate();
+
+		
+//		List<Value> result = OnlineMinimizer.minimize(net, toTest3);
+//		for(Value val : result) {
+//			System.out.println(val);
+//		}
+		
+		
 		
 	}
 

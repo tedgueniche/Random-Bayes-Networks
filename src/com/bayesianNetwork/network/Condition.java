@@ -95,20 +95,47 @@ public class Condition implements Cloneable {
 	}
 	
 
+	/**
+	 * Return a list of values with wildcards
+	 * @return A list of wildcard value in this condition
+	 */
+	public List<Value> getAllWildcards() {
+
+		List<Value> wildcards = new ArrayList<Value>();
+		for(Entry<String, Value> entry : fields.entrySet()) {
+			if(entry.getValue().value == null) {
+				wildcards.add(entry.getValue());
+			}
+		}
+		return wildcards;
+	}
 	
+	/**
+	 * For a given condition, it returns all the concrete variations of the condition.
+	 * A concrete condition does not have wildcards value. The task consists in finding all
+	 * the possible variation over the wildcards value
+	 * @param condition Condition to evaluate
+	 * @return An exhaustive list of concrete condition.
+	 */
 	public static List<Condition> getConcretes(Condition condition) {
-		
+		//init the list of concrete conditions
 		List<Condition> conditions = new ArrayList<Condition>();
 		
+		//if there is not wildcard, the given condition
+		//is the only concrete condition
 		if(condition.countWildcards() == 0) {
 			conditions.add(condition);
 		}
+		//else we use the helper method to extract all the concrete conditions
 		else {
 			getConcretesHelper(condition, conditions, 0);
 		}
 		return conditions;
 	}
 	
+	/**
+	 * This recursive method should only be called by getConcretes(Condition condition)
+	 */
 	private static void getConcretesHelper(Condition condition, List<Condition> conditions, int offset) {
 		
 		int index = 0;
@@ -136,6 +163,8 @@ public class Condition implements Cloneable {
 	}
 	
 	
+	
+	@Override
 	public String toString() {
 		String output = "";
 		for(Entry<String, Value> entry : fields.entrySet()) {
@@ -164,6 +193,4 @@ public class Condition implements Cloneable {
 		c.wildCardCount = new Integer(wildCardCount);
 		return c;
 	}
-	
-	
 }

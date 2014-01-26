@@ -183,6 +183,8 @@ public class Node {
 	}
 
 	/**
+	 * Not fully supported yet
+	 * This method is supposed to identify state where the support is 100%
 	 * Basic implementation:
 	 * if there is only one condition then its support is 100%
 	 * @return A list of invariant conditions
@@ -199,9 +201,11 @@ public class Node {
 	}
 	
 	
+	
+	
 	public static void main(String[] args) {
 		
-		Condition c1 = new Condition("1	2	1	2	1	2");
+		Condition c1 = new Condition("2	2	1	2	1	2");
 		Condition c2 = new Condition("1	1	1	1	1	1");
 		Condition c3 = new Condition("1	1	2	1	2	1");
 		Condition c4 = new Condition("1	1	1	2	1	1");
@@ -217,17 +221,22 @@ public class Node {
 		A.processCase(c1);
 		A.processCase(c2);
 		A.processCase(c3);
-//		A.processCase(c4);
-//		A.processCase(c5);
-//		A.processCase(c6);
+		A.processCase(c4);
+		A.processCase(c5);
+		A.processCase(c6);
 		
 		System.out.println(A);
 		
-		System.out.println(A.prob(new Condition("1	1	*")));
+		System.out.println(A.prob(new Condition("1	*	*")));
 		
 		List<Condition> invariants = A.getInvariant();
 		for(Condition c : invariants) {
 			System.out.println(c);
+		}
+		
+		List<Value> values = c1.getAllWildcards();
+		for(Value val : values) {
+			System.out.println(val);
 		}
 		
 	}
