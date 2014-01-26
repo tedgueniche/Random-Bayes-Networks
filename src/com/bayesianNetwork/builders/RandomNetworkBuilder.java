@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.bayesianNetwork.network.Network;
 import com.bayesianNetwork.network.Node;
+import com.bayesianNetwork.network.RandomBayesianNetworks;
 
 /**
  * Build a random Bayesian network
@@ -39,7 +40,10 @@ public class RandomNetworkBuilder {
 		this.maxParent = maxParent;
 	}
 	
-	
+	/**
+	 * Generate a random Bayesian Network
+	 * @return
+	 */
 	public Network generate() {
 
 		//Generating the list of node to add in the network
@@ -64,6 +68,21 @@ public class RandomNetworkBuilder {
 		Network net = new Network();
 		net.Root = root;
 		return net;
+	}
+	
+	/**
+	 * Generate a random set of Bayesian Networks
+	 * @param count Number of network in the set
+	 * @return A RandomBayesianNetworks
+	 */
+	public RandomBayesianNetworks generate(int count) {
+		
+		RandomBayesianNetworks networks = new RandomBayesianNetworks();
+		for(int i = 0 ; i < count ; i++) {
+			networks.AddNetwork(generate());
+		}
+		
+		return networks;
 	}
 	
 	/**

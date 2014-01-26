@@ -8,7 +8,7 @@ import java.util.Set;
  * @author Ted Gueniche
  *
  */
-public class Network {
+public class Network implements INetwork {
 
 	
 	/**
