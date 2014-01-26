@@ -31,6 +31,9 @@ public class Node {
 		totalSupport = 0;
 	}
 	
+	/**
+	 * Get the id of this node's id
+	 */
 	public String getId() {
 		return attributeId;
 	}
@@ -43,10 +46,18 @@ public class Node {
 		parents.add(id);
 	}
 	
+	/**
+	 * Count the number of parents
+	 */
 	public int ParentSize() {
 		return parents.size();
 	}
 	
+	/**
+	 * Check whether this node has the given parent
+	 * @param id Id of the parent to check
+	 * @return True if found, false otherwise
+	 */
 	public boolean hasParent(String id) {
 		for(String parent : parents) {
 			if(id.compareTo(parent) == 0) {
@@ -65,6 +76,10 @@ public class Node {
 		children.add(child);
 	}
 	
+	/**
+	 * Get the list of children node for this node
+	 * @return A list of unordered nodes
+	 */
 	public List<Node> getChildren() {
 		return children;
 	}
@@ -186,20 +201,12 @@ public class Node {
 	
 	public static void main(String[] args) {
 		
-		Condition c1 = new Condition("1	1	1	2	1	2");
+		Condition c1 = new Condition("1	2	1	2	1	2");
 		Condition c2 = new Condition("1	1	1	1	1	1");
-		Condition c3 = new Condition("1	1	1	1	2	1");
+		Condition c3 = new Condition("1	1	2	1	2	1");
 		Condition c4 = new Condition("1	1	1	2	1	1");
 		Condition c5 = new Condition("1	1	2	1	1	2");
 		Condition c6 = new Condition("1	1	2	1	1	1");
-//		Condition c7 = new Condition("1	1	2	1	2	2");
-//		Condition c8 = new Condition("1	1	1	2	2	1");
-//		Condition c9 = new Condition("1	1	1	1	2	2");
-//		Condition c10 = new Condition("2	2	2	2	1	1");
-//		Condition c11 = new Condition("2	1	1	2	1	1");
-//		Condition c12 = new Condition("2	2	1	1	2	1");
-//		Condition c13 = new Condition("2	1	1	1	2	1");
-//		Condition c14 = new Condition("1	1	2	1	2	1");
 		
 		System.out.println(c1);
 		

@@ -3,8 +3,7 @@ package com.bayesianNetwork.network;
 /**
  * Represents a value with a string identifier
  * @author Ted Gueniche
- *
- * @param <T> Value's type
+ * 
  */
 public class Value {
 
@@ -38,6 +37,9 @@ public class Value {
 		this.value = value;
 	}
 	
+	/**
+	 * For debugging purposes
+	 */
 	public String toString() {
 		return id + ":"+ ((value == null)? "*" : value);
 	}

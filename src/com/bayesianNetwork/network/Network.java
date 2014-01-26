@@ -76,11 +76,4 @@ public class Network {
 		
 		return probability;
 	}
-	
-	public static void main(String[] args) {
-		
-		
-		
-	}
-
 }
