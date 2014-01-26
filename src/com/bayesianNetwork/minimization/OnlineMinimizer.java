@@ -6,7 +6,6 @@ import java.util.TreeMap;
 
 import com.bayesianNetwork.network.Condition;
 import com.bayesianNetwork.network.INetwork;
-import com.bayesianNetwork.network.Network;
 import com.bayesianNetwork.network.Value;
 
 /**
