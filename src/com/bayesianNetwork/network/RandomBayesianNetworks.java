@@ -49,6 +49,16 @@ public class RandomBayesianNetworks implements INetwork {
 	}
 	
 	/**
+	 * Propagate all the given conditions to all the networks
+	 */
+	public void processAllCases(List<Condition> conditions) {
+		for(Condition condition : conditions) {
+			processCase(condition);
+		}
+	}
+	
+	
+	/**
 	 * Query all the Bayesian Network for the probability
 	 * of this condition and return the mode if possible
 	 * or the mean otherwise.
@@ -98,5 +108,7 @@ public class RandomBayesianNetworks implements INetwork {
 		
 		return result;
 	}
+
+
 
 }

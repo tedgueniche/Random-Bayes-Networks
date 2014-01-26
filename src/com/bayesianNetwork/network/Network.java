@@ -1,6 +1,7 @@
 package com.bayesianNetwork.network;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -54,6 +55,15 @@ public class Network implements INetwork {
 			
 			//Recursive call for this node's children
 			processCase(seen, child, condition);
+		}
+	}
+	
+	/**
+	 * Propagate all the given conditions to all the networks
+	 */
+	public void processAllCases(List<Condition> conditions) {
+		for(Condition condition : conditions) {
+			processCase(condition);
 		}
 	}
 	
