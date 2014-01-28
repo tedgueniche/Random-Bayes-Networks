@@ -14,7 +14,7 @@ import com.bayesianNetwork.network.Value;
  * guessed with a probability over a minimum support threshold for the given condition.
  * It help reduce the number of dimensions when all the values for these dimensions is not yet
  * known. This is way it considered an online operation.
- * @author Ted
+ * @author Ted Gueniche
  *
  */
 public class OnlineMinimizer {
@@ -61,13 +61,4 @@ public class OnlineMinimizer {
 		
 		return values;
 	}
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

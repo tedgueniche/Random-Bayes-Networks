@@ -2,6 +2,7 @@ package com.bayesianNetwork.network;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 
@@ -84,6 +85,21 @@ public class Condition implements Cloneable {
 	 */
 	public Value getValueById(String id) {
 		return fields.get(id);
+	}
+	
+	
+	public List<String> getIds() {
+		List<String> ids = new ArrayList<String>();
+		ids.addAll(fields.keySet());
+		return ids;
+	}
+	
+	/**
+	 * Return the number of dimensions
+	 * @return
+	 */
+	public Integer size() {
+		return fields.size();
 	}
 	
 	/**

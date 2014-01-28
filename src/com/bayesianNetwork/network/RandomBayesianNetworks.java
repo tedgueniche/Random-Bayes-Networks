@@ -96,11 +96,9 @@ public class RandomBayesianNetworks implements INetwork {
 		
 		if(maxCount1 > maxCount2) {
 			result = maxValue1;
-			System.out.println("Mode: "+ result + " sup: "+ maxCount1);
 		}
 		else {
 			result = ((maxValue1  + maxValue2) / 2.0);
-			System.out.println("Mean: "+ result + " sup: "+ maxCount1 + ", "+ maxCount2);
 		}
 		
 		return result;

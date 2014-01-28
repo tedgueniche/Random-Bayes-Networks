@@ -134,14 +134,23 @@ public class Node {
 	 * @param condition Condition to match
 	 */
 	private void inc(Condition condition) {
-		List<Condition> possibleConditions = Condition.getConcretes(condition);
-		for(Condition c : possibleConditions) {
-		
-			Integer value = getSupport(c);
+		if(condition.countWildcards() == 0) {
+			Integer value = getSupport(condition);
 			
 			totalSupport++;
 			value++;
-			data.put(c, value);
+			data.put(condition, value);
+		}
+		else {
+			List<Condition> possibleConditions = Condition.getConcretes(condition);
+			for(Condition c : possibleConditions) {
+			
+				Integer value = getSupport(c);
+				
+				totalSupport++;
+				value++;
+				data.put(c, value);
+			}
 		}
 	}
 	

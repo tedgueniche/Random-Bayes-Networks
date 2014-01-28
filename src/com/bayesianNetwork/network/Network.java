@@ -54,7 +54,9 @@ public class Network implements INetwork {
 			child.processCase(condition);
 			
 			//Recursive call for this node's children
-			processCase(seen, child, condition);
+			if(child.getChildren().size() > 0) {
+				processCase(seen, child, condition);
+			}
 		}
 	}
 	
