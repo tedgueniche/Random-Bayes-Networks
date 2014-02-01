@@ -13,7 +13,14 @@ import com.bayesianNetwork.network.RandomBayesianNetworks;
 import com.bayesianNetwork.network.Value;
 import com.bayesianNetwork.utilities.TimerBenchmark;
 
-public class EvaluationController {
+/**
+ * In this experiment, the data are separated in training vs testing.
+ * We take a random sample from each testing vector and replace it with 
+ * wildcards. The prediction task consists in predicting the value of each wildcards.
+ * @author Ted Gueniche
+ *
+ */
+public class DimensionPredictionController {
 
 	/**
 	 * This method replace a portion of the given condition with some wildcards
@@ -43,7 +50,7 @@ public class EvaluationController {
 	/**
 	 * Calculate the distance between two conditions. 
 	 * @return 0 when the two conditions are identical or it returns the number
-	 * of distinc values. A wildcard is always considered identical to any value
+	 * of distinct values. A wildcard is always considered identical to any value
 	 */
 	public static int distance(Condition A, Condition B) {
 		

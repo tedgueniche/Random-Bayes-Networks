@@ -24,13 +24,5 @@ public class OfflineMinimizer {
 		System.err.println("OfflineMinimizer::minimize() is not implemented");
 		return null;
 	}
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 
 }
