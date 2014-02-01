@@ -94,34 +94,37 @@ public class DimensionPredictionController {
 		RandomNetworkBuilder nb = new RandomNetworkBuilder(dimension, minLevelLength, maxLevelLength, minParent, maxParent);
 		
 		//Generate the networks
-		RandomBayesianNetworks nets = nb.generate(10);
+		RandomBayesianNetworks nets = nb.generate(25);
 		TimerBenchmark.pause("Network Structure");
 		
 		//Preparing the data
 		TimerBenchmark.start("Preparing the datasets");
 		Dataset dataset = new Dataset("C:\\Users\\Root\\Dropbox\\dev\\projects\\java\\BayesianNetworks\\data\\All.txt");
-		dataset.prepare(0.8);
+		dataset.prepare(0.95);
 		TimerBenchmark.pause("Preparing the datasets");
 		
-		//Training the model
+		//Training the model2
 		TimerBenchmark.start("Training the model");
 		nets.processAllCases(dataset.trainingSet);
 		TimerBenchmark.pause("Training the model");
 		
 		TimerBenchmark.start("Testing the model");
-		double mutationRate = 0.028;
+		double mutationRate = 0.1;
 		Results results = new Results();
 		for(Condition original : dataset.testingSet) {
 			
 			//Cloning, mutating and minimizing
 			Condition mutated = original.clone();
 			int wildcardAdded = mutateCondition(mutated, mutationRate);
+			
+			TimerBenchmark.start("Minimization");
 			minimize(mutated, nets);
+			TimerBenchmark.pause("Minimization");
 			
 			//Saving results
 			int dist = distance(original, mutated);
-			int changed = wildcardAdded - mutated.countWildcards();
-			results.addResult(dist, changed);
+			int predicted = wildcardAdded - mutated.countWildcards();
+			results.addResult(dist, predicted, wildcardAdded);
 			
 		}
 		TimerBenchmark.pause("Testing the model");

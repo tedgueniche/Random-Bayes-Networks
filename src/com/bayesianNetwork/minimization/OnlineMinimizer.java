@@ -20,7 +20,7 @@ import com.bayesianNetwork.network.Value;
 public class OnlineMinimizer {
 
 	
-	public static final double threshold = 0.96;
+	public static final double threshold = 0.70;
 	
 	/**
 	 * Tries to identify which dimensions values can be guessed

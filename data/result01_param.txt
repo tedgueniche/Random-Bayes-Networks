@@ -1,0 +1,58 @@
+Conclusion les meilleurs params sont 2 2 3 3, pas besoin de graphiques
+
+
+Params: 1 1 1 1
+RBA: 1
+ratio training: 0.95
+mutation rate: 0.8
+Treshold: 0.70
+Coverage: 0.8574475648773552
+Accuracy: 0.923922056384743
+Avg gain: 45.94845360824742
+
+
+Params: 2 2 1 1
+Coverage: 0.8371845005332386
+Accuracy: 0.932484076433121
+Avg gain: 45.27835051546392
+
+Param: 3 3 1 1
+Coverage: 0.8101670814077497
+Accuracy: 0.9429574374725757
+Avg gain: 44.30927835051546
+
+Param: 4 4 1 1
+Coverage: 0.013864201919658727
+Accuracy: 1.0
+Avg gain: 0.8041237113402062
+
+////////////////////////////////////
+Param: 2 2 1 1
+Coverage: 0.8556701030927835
+Accuracy: 0.9233485666805151
+Avg gain: 45.824742268041234
+
+Param: 2 2 2 2
+Coverage: 0.8961962317810167
+Accuracy: 0.9111463704879016
+Avg gain: 47.36082474226804
+
+Param: 2 2 3 3
+Coverage: 0.9200142196942765
+Accuracy: 0.8989567233384853
+Avg gain: 47.96907216494845
+
+Param: 2 2 4 4
+Coverage: 0.9194809811589051
+Accuracy: 0.9046974676203363
+Avg gain: 48.24742268041237
+
+Param: 2 2 5 5
+Coverage: 0.9191254888019907
+Accuracy: 0.9031135176948366
+Avg gain: 48.144329896907216
+
+Param: 2 2 8 8
+Coverage: 0.9166370423035904
+Accuracy: 0.9092495636998255
+Avg gain: 48.34020618556701
