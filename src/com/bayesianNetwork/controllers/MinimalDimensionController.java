@@ -5,7 +5,6 @@ import java.util.List;
 import com.bayesianNetwork.builders.RandomNetworkBuilder;
 import com.bayesianNetwork.evaluation.Dataset;
 import com.bayesianNetwork.evaluation.MinimizationResult;
-import com.bayesianNetwork.evaluation.PredictionResults;
 import com.bayesianNetwork.network.Condition;
 import com.bayesianNetwork.network.INetwork;
 import com.bayesianNetwork.network.Value;
@@ -13,7 +12,9 @@ import com.bayesianNetwork.utilities.TimerBenchmark;
 
 
 /**
- * 
+ * In this experiment, we try to reduce the number of dimensions
+ * for a vector while keeping a high confidence of a specific value within
+ * that vector.
  * @author Ted Gueniche
  *
  */
@@ -124,9 +125,12 @@ public class MinimalDimensionController {
 		MinimizationResult results = new MinimizationResult();
 		for(Condition original : dataset.testingSet) {
 			
+			//Save the original confidence
 			double originalProb = prob(nets, original, toKeep);
 			double curProb = originalProb;
 			
+			//While the confidence is still high
+			//we can remove more dimensions
 			while(curProb > threshold) {
 				
 				Value v = minimize(nets, original, toKeep);
@@ -134,14 +138,13 @@ public class MinimalDimensionController {
 					break;
 				}
 				
-				if(original.countWildcards() == 23) {
-					prob(nets, original, toKeep);
-				}
-				
+				//Tries to remove the least important dimension
 				Condition toTest = original.clone();
 				toTest.setValue(v.id, v);
 				curProb = prob(nets, toTest, toKeep);
 				
+				//The following exit hole is to 
+				//avoid setting a value that will lower the confidence
 				if(curProb > threshold) {
 					original.setValue(v.id, v);
 				}
@@ -150,6 +153,7 @@ public class MinimalDimensionController {
 				}
 			}
 			
+			//Calculating the precision loss and the dimension gain
 			double finalProb = prob(nets, original, toKeep);
 			double probLoss = originalProb - finalProb;
 			int gain = original.countWildcards();

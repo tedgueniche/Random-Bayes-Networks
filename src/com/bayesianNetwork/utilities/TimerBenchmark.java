@@ -8,6 +8,7 @@ import java.util.Map.Entry;
  * Class used to measure execution time of code
  * use the start and stop method to start 
  * a timer and to stop it
+ * @author Ted Gueniche
  */
 public class TimerBenchmark {
 	

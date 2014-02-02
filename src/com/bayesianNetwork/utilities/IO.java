@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class use to interact with the filesystem
+ * @author Ted Gueniche
+ *
+ */
 public class IO {
 
 	
