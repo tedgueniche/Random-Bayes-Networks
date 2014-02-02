@@ -2,10 +2,11 @@ package com.bayesianNetwork.evaluation;
 
 /**
  * Represent a set of results for the evaluation framework
+ * for the prediction task
  * @author Ted Gueniche
  *
  */
-public class Results {
+public class PredictionResults {
 
 	private int goodPredictedValues;
 	private int badPredictedValues;
@@ -16,7 +17,7 @@ public class Results {
 	/**
 	 * Instantiate an empty result set
 	 */
-	public Results() {
+	public PredictionResults() {
 		goodPredictedValues = 0;
 		badPredictedValues = 0;
 		predicted = 0;

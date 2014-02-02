@@ -5,11 +5,10 @@ import java.util.List;
 
 import com.bayesianNetwork.builders.RandomNetworkBuilder;
 import com.bayesianNetwork.evaluation.Dataset;
-import com.bayesianNetwork.evaluation.Results;
+import com.bayesianNetwork.evaluation.PredictionResults;
 import com.bayesianNetwork.minimization.OnlineMinimizer;
 import com.bayesianNetwork.network.Condition;
 import com.bayesianNetwork.network.INetwork;
-import com.bayesianNetwork.network.RandomBayesianNetworks;
 import com.bayesianNetwork.network.Value;
 import com.bayesianNetwork.utilities.TimerBenchmark;
 
@@ -94,7 +93,7 @@ public class DimensionPredictionController {
 		RandomNetworkBuilder nb = new RandomNetworkBuilder(dimension, minLevelLength, maxLevelLength, minParent, maxParent);
 		
 		//Generate the networks
-		RandomBayesianNetworks nets = nb.generate(25);
+		INetwork nets = nb.generate(25);
 		TimerBenchmark.pause("Network Structure");
 		
 		//Preparing the data
@@ -110,7 +109,7 @@ public class DimensionPredictionController {
 		
 		TimerBenchmark.start("Testing the model");
 		double mutationRate = 0.1;
-		Results results = new Results();
+		PredictionResults results = new PredictionResults();
 		for(Condition original : dataset.testingSet) {
 			
 			//Cloning, mutating and minimizing
