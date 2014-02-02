@@ -3,10 +3,8 @@ package com.bayesianNetwork.controllers;
 import java.util.List;
 
 import com.bayesianNetwork.builders.RandomNetworkBuilder;
-import com.bayesianNetwork.minimization.OnlineMinimizer;
 import com.bayesianNetwork.network.Condition;
 import com.bayesianNetwork.network.RandomBayesianNetworks;
-import com.bayesianNetwork.network.Value;
 import com.bayesianNetwork.utilities.IO;
 import com.bayesianNetwork.utilities.TimerBenchmark;
 
@@ -43,18 +41,13 @@ public class RandomNetworksController {
 		//Some testing
 		Condition t1 = new Condition("*	*	*	*	*	*	*	*	1	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	1");
 		Condition t2 = new Condition("*	*	*	*	*	*	*	*	1	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	2");
-//		
+		
 		Double t1Score = nets.prob(t1);
 		Double t2Score = nets.prob(t2);
 		Double sum = t1Score + t2Score;
 		System.out.println(t1Score / sum);
 		
 		
-//		Condition t3 = new Condition("2	*	2	2	2	2	*	2	1	1	2	2	2	2	*	2	1	2	2	1	1	1");
-//		List<Value> result = OnlineMinimizer.minimize(nets, t3);
-//		for(Value val : result) {
-//			System.out.println(val);
-//		}
 		
 		System.out.println(TimerBenchmark.allToString());
 		

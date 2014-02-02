@@ -19,7 +19,7 @@ public class OfflineMinimizer {
 	 * @param net The Bayesian Network to minimize, this method does not modify the Bayesian Network.
 	 * @return A list of minimization rules.
 	 */
-	public static List<Rule> minimize(Network net) {
+	public static List<String> minimize(Network net) {
 		
 		System.err.println("OfflineMinimizer::minimize() is not implemented");
 		return null;
